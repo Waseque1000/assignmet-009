@@ -1,29 +1,27 @@
-// import { signInWithEmailAndPassword } from "firebase/auth";
-// import { useContext } from "react";
-
+import { useContext } from "react";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../../Provider/Authproviders";
 
-// import { AuthContext } from "../../Providers/AuthProviders";
 const Login = () => {
+  const { login } = useContext(AuthContext);
   //
-  // const ok = useContext(AuthContext);
-  // console.log(ok);
+
   const handlelogin = (e) => {
     e.preventDefault();
     const form = e.target;
     const email = form.email.value;
     const password = form.password.value;
     console.log(email, password);
-    // signInWithEmailAndPassword(auth, email, password)
-    //   .then((result) => {
-    //     alert("Login Successful");
-    //     console.log(result);
-    //   })
-    //   .catch((error) => {
-    //     console.log(error.message);
-    //     alert("Login Failed");
-    //   });
-    // form.reset();
+    login(email, password)
+      .then((result) => {
+        const user = result.user;
+        console.log(user);
+        form.reset();
+      })
+      .catch((error) => {
+        console.error("Error logging in: ", error);
+        // Handle error
+      });
   };
   return (
     <div>

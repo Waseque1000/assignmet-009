@@ -41,17 +41,17 @@ const Navbar = () => {
             user?<></> :<></>
            } */}
             {/* TODO: */}
-            <NavLink className="mr-3" to="/">
+            <NavLink className="mr-3 btn " to="/">
               Home
             </NavLink>
 
-            <NavLink className="mr-3" to="/about">
+            <NavLink className="mr-3 btn" to="/about">
               Start Learning
             </NavLink>
-            <NavLink className="mr-3" to="/contact">
+            <NavLink className="mr-3 btn" to="/contact">
               Tutorial
             </NavLink>
-            <NavLink className="mr-3" to="/faq">
+            <NavLink className="mr-3 btn" to="/about">
               About Us
             </NavLink>
           </ul>

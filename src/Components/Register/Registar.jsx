@@ -1,8 +1,10 @@
 import React, { useContext } from "react";
 import { AuthContext } from "../../Provider/Authproviders";
+import { Link } from "react-router-dom";
 
 const Registar = () => {
-  const register = useContext(AuthContext);
+  const { register } = useContext(AuthContext);
+  console.log(register);
   const handlelogin = (e) => {
     e.preventDefault();
     const form = e.target;
@@ -12,6 +14,7 @@ const Registar = () => {
       .then((result) => {
         const user = result.user;
         console.log(user);
+        form.reset();
       })
       .catch((err) => {
         console.log(err.message);
@@ -82,9 +85,12 @@ const Registar = () => {
                   required
                 />
                 <label className="label">
-                  <a href="#" className="label-text-alt link link-hover">
-                    Forgot password?
-                  </a>
+                  <Link
+                    to="/login"
+                    className="label-text-alt link link-hover text-red-500"
+                  >
+                    Already have an account
+                  </Link>
                 </label>
               </div>
               <div className="form-control mt-6">
