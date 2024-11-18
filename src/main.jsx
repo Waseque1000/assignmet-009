@@ -9,6 +9,10 @@ import Login from "./Components/Login/Login.jsx";
 import Registar from "./Components/Register/Registar.jsx";
 import AuthProviders from "./Provider/Authproviders.jsx";
 import About from "./Components/About/About.jsx";
+import Error from "./Components/Error/Error.jsx";
+import PrivateRouts from "./Routes/Private/PrivateRouts.jsx";
+import Startlearning from "./Components/StartLearning/Startlearning.jsx";
+import Dashboard from "./Components/Dashboard/Dashboard.jsx";
 
 const router = createBrowserRouter([
   {
@@ -17,7 +21,7 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        loader: () => fetch("/data.json"),
+
         element: <Home />,
       },
       {
@@ -34,8 +38,30 @@ const router = createBrowserRouter([
         element: <Registar />,
       },
       {
+        path: "/learning",
+        loader: () => fetch("/data.json"),
+        element: (
+          <PrivateRouts>
+            <Startlearning></Startlearning>
+          </PrivateRouts>
+        ),
+      },
+      {
         path: "/about",
         element: <About />,
+      },
+      {
+        path: "*",
+        element: <Error />,
+      },
+      {
+        path: "/dashboard",
+
+        element: (
+          <PrivateRouts>
+            <Dashboard />
+          </PrivateRouts>
+        ),
       },
     ],
   },

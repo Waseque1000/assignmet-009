@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { AuthContext } from "../../Provider/Authproviders";
 
 const Login = () => {
-  const { login } = useContext(AuthContext);
+  const { login, user, setUser, setLoading } = useContext(AuthContext);
   //
 
   const handlelogin = (e) => {
@@ -15,6 +15,8 @@ const Login = () => {
     login(email, password)
       .then((result) => {
         const user = result.user;
+        setUser(user);
+        setLoading(false);
         console.log(user);
         form.reset();
       })
