@@ -12,13 +12,16 @@ import {
   Bell,
   Search,
 } from "lucide-react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../Provider/Authproviders";
+import { Helmet } from "react-helmet";
 
 const Dashboard = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
-  const { logOut } = useContext(AuthContext);
+  const { logOut, user } = useContext(AuthContext);
   const navigate = useNavigate();
+  const location = useLocation();
+  console.log(navigate);
 
   const stats = [
     {
@@ -91,6 +94,9 @@ const Dashboard = () => {
 
   return (
     <div className="min-h-screen pt-10 bg-base-200">
+      <Helmet>
+        <title>Dashboard</title>
+      </Helmet>
       {/* Sidebar */}
       <div
         className={`fixed top-0 mt-20 left-0 h-screen bg-base-100 shadow-xl transition-all duration-300 ${
@@ -171,16 +177,24 @@ const Dashboard = () => {
             </div>
           </div>
           <div className="flex-none gap-2">
-            <button className="btn btn-ghost btn-circle">
+            <div className="text-1xl font-bold">
+              Welcome{" "}
+              <span className="text-red-600 text-3xl italic">
+                {user?.displayName}
+              </span>
+            </div>
+            {/* <button className="btn btn-ghost btn-circle">
               <div className="indicator">
                 <Bell className="w-5 h-5" />
-                <span className="badge badge-xs badge-primary indicator-item"></span>
+                <span className="badge badge-xs badge-primary indicator-item">
+                  6
+                </span>
               </div>
-            </button>
+            </button> */}
             <div className="dropdown dropdown-end">
               <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
                 <div className="w-10 rounded-full">
-                  <img src="/api/placeholder/40/40" alt="avatar" />
+                  <img src={user?.photoURL} alt="avatar" />
                 </div>
               </label>
             </div>

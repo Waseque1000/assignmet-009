@@ -1,25 +1,57 @@
 import React, { useContext } from "react";
 import { AuthContext } from "../../Provider/Authproviders";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const Registar = () => {
-  const { register, user, setUser } = useContext(AuthContext);
+  const { register, user, setUser, updateUserProfile } =
+    useContext(AuthContext);
+  const navigate = useNavigate();
   console.log(register);
   const handlelogin = (e) => {
     e.preventDefault();
     const form = e.target;
     const email = form.email.value;
     const password = form.password.value;
+    const name = form.name.value;
+    const photo = form.photo.value;
     register(email, password)
       .then((result) => {
         const user = result.user;
         setUser(user);
         console.log(user);
+        toast("Registration Success", {
+          position: "top-right",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+        updateUserProfile({ displayName: name, photoURL: photo })
+          .then(() => {
+            navigate("/");
+          })
+          .catch((err) => {
+            console.log(err);
+          });
         form.reset();
       })
       .catch((err) => {
         console.log(err.message);
         alert("Registration Failed");
+        toast(err.message, {
+          position: "top-right",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
       });
     console.log(email, password);
   };

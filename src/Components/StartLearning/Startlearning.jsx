@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Helmet } from "react-helmet";
 import { GiSpeaker } from "react-icons/gi";
 import { useLoaderData } from "react-router-dom";
 
@@ -25,6 +26,9 @@ const Startlearning = () => {
 
   return (
     <div className="container mx-auto p-4 max-w-4xl">
+      <Helmet>
+        <title>Learning</title>
+      </Helmet>
       {/* Lessons Card */}
       <div className="card bg-base-100 shadow-xl mb-6">
         <div className="card-body">

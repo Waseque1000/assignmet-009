@@ -42,9 +42,12 @@ const Navbar = () => {
           </div>
           <div className="flex items-center">
             <PiGraduationCapFill className="h-8 w-8 text-blue-600" />
-            <span className="ml-2 text-2xl font-bold text-blue-600">
-              Lingo Bingo
-            </span>
+            <Link to="/">
+              {" "}
+              <span className="ml-2 text-2xl font-bold text-blue-600">
+                Lingo Bingo
+              </span>
+            </Link>
           </div>
         </div>
         <div className="navbar-center hidden lg:flex">
@@ -72,8 +75,19 @@ const Navbar = () => {
         </div>
         <div className="    navbar-end">
           {user ? (
+            <div>
+              <img
+                className="w-10 mr-2 rounded-full"
+                src={user?.photoURL}
+                alt=""
+              />
+            </div>
+          ) : (
+            <></>
+          )}
+
+          {user ? (
             <>
-              <FaUser className="text-2xl mr-2"></FaUser>
               <Link onClick={handleLogout} className="btn ">
                 Log out
               </Link>

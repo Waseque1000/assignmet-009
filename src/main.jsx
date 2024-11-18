@@ -13,7 +13,8 @@ import Error from "./Components/Error/Error.jsx";
 import PrivateRouts from "./Routes/Private/PrivateRouts.jsx";
 import Startlearning from "./Components/StartLearning/Startlearning.jsx";
 import Dashboard from "./Components/Dashboard/Dashboard.jsx";
-
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -70,6 +71,20 @@ const router = createBrowserRouter([
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <AuthProviders>
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
+      {/* Same as */}
+      <ToastContainer />
       <RouterProvider router={router} />
     </AuthProviders>
   </StrictMode>

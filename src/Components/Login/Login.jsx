@@ -1,10 +1,13 @@
 import { useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../Provider/Authproviders";
+import { toast } from "react-toastify";
 
 const Login = () => {
   const { login, user, setUser, setLoading } = useContext(AuthContext);
   //
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const handlelogin = (e) => {
     e.preventDefault();
@@ -17,7 +20,18 @@ const Login = () => {
         const user = result.user;
         setUser(user);
         setLoading(false);
+        navigate(location?.state ? location?.state : "/", { replace: true });
         console.log(user);
+        toast("Login Success", {
+          position: "top-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
         form.reset();
       })
       .catch((error) => {
