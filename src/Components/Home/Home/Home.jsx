@@ -9,6 +9,7 @@ import { Helmet } from "react-helmet";
 import AboutShared from "../../Shared/AboutShared";
 import Feedback from "../../About/Feedback/Feedback";
 import Footer from "../../Footer/Footer";
+import Success from "../../Success/Success";
 
 const Home = () => {
   return (
@@ -18,6 +19,7 @@ const Home = () => {
       </Helmet>
       <Hero></Hero>
       <Hero2></Hero2>
+      <Success />
       <Hero3 />
       <AboutShared></AboutShared>
       <Feedback />

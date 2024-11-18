@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import img from "../../../assets/dictionary-1ffrjz.png";
 const Hero3 = () => {
   return (
-    <div className="my-14 text-center px-20">
+    <div className="my-14 mt-16 text-center px-20">
       <div className="flex flex-row">
         <div>
           <img src={img} className="w-full" alt="" />

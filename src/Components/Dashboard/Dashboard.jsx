@@ -1,6 +1,16 @@
 import React, { useContext, useState } from "react";
 import {
   BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  Tooltip,
+  Legend,
+  CartesianGrid,
+  ResponsiveContainer,
+} from "recharts";
+import {
+  BarChart as BarChartIcon,
   Activity,
   Users,
   ShoppingBag,
@@ -21,7 +31,15 @@ const Dashboard = () => {
   const { logOut, user } = useContext(AuthContext);
   const navigate = useNavigate();
   const location = useLocation();
-  console.log(navigate);
+
+  const learningTimeData = [
+    { month: "Jan", hours: 42, users: 1200 },
+    { month: "Feb", hours: 55, users: 1350 },
+    { month: "Mar", hours: 63, users: 1500 },
+    { month: "Apr", hours: 48, users: 1250 },
+    { month: "May", hours: 72, users: 1675 },
+    { month: "Jun", hours: 59, users: 1425 },
+  ];
 
   const stats = [
     {
@@ -80,12 +98,12 @@ const Dashboard = () => {
   const handleLogout = async () => {
     try {
       await logOut();
-      navigate("/login"); // Redirect to login page after logout
+      navigate("/login");
     } catch (error) {
       console.error("Logout error:", error);
-      // Optionally show error using a toast/alert
     }
   };
+
   const upcomingEvents = [
     { title: "Team Meeting", time: "10:00 AM", date: "Today" },
     { title: "Product Launch", time: "2:00 PM", date: "Tomorrow" },
@@ -97,6 +115,7 @@ const Dashboard = () => {
       <Helmet>
         <title>Dashboard</title>
       </Helmet>
+
       {/* Sidebar */}
       <div
         className={`fixed top-0 mt-20 left-0 h-screen bg-base-100 shadow-xl transition-all duration-300 ${
@@ -118,9 +137,12 @@ const Dashboard = () => {
         <nav className="p-4">
           <ul className="space-y-2">
             {[
-              { icon: <BarChart className="w-5 h-5" />, label: "Analytics" },
-              { icon: <Users className="w-5 h-5" />, label: "Customers" },
-              { icon: <ShoppingBag className="w-5 h-5" />, label: "Orders" },
+              {
+                icon: <BarChartIcon className="w-5 h-5" />,
+                label: "Analytics",
+              },
+              { icon: <Users className="w-5 h-5" />, label: "Learning Time" },
+              { icon: <ShoppingBag className="w-5 h-5" />, label: "Exam" },
               {
                 icon: <MessageCircle className="w-5 h-5" />,
                 label: "Messages",
@@ -183,14 +205,7 @@ const Dashboard = () => {
                 {user?.displayName}
               </span>
             </div>
-            {/* <button className="btn btn-ghost btn-circle">
-              <div className="indicator">
-                <Bell className="w-5 h-5" />
-                <span className="badge badge-xs badge-primary indicator-item">
-                  6
-                </span>
-              </div>
-            </button> */}
+
             <div className="dropdown dropdown-end">
               <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
                 <div className="w-10 rounded-full">
@@ -236,10 +251,29 @@ const Dashboard = () => {
             {/* Chart Card */}
             <div className="card bg-base-100 shadow-xl lg:col-span-2">
               <div className="card-body">
-                <h3 className="card-title">Revenue Overview</h3>
-                <div className="h-80 flex items-center justify-center bg-base-200/50 rounded-lg">
-                  {/* Placeholder for chart */}
-                  <p className="text-base-content/50">Chart would go here</p>
+                <h3 className="card-title">Learning Time Overview</h3>
+                <div className="h-80">
+                  <ResponsiveContainer width="100%" height="100%">
+                    <BarChart data={learningTimeData}>
+                      <CartesianGrid strokeDasharray="3 3" />
+                      <XAxis dataKey="month" />
+                      <YAxis
+                        label={{
+                          value: "Hours/Users",
+                          angle: -90,
+                          position: "insideLeft",
+                        }}
+                      />
+                      <Tooltip />
+                      <Legend />
+                      <Bar
+                        dataKey="hours"
+                        fill="#3B82F6"
+                        name="Learning Hours"
+                      />
+                      <Bar dataKey="users" fill="#10B981" name="Active Users" />
+                    </BarChart>
+                  </ResponsiveContainer>
                 </div>
               </div>
             </div>
@@ -308,16 +342,13 @@ const Dashboard = () => {
               <div className="card-body">
                 <h3 className="card-title">Quick Actions</h3>
                 <div className="grid grid-cols-2 gap-4 mt-4">
-                  {[
-                    "Add Product",
-                    "New Message",
-                    "Schedule Event",
-                    "View Reports",
-                  ].map((action, index) => (
-                    <button key={index} className="btn btn-outline">
-                      {action}
-                    </button>
-                  ))}
+                  {["New Vocabulary", "Exercise", "Exam", "View Reports"].map(
+                    (action, index) => (
+                      <button key={index} className="btn btn-outline">
+                        {action}
+                      </button>
+                    )
+                  )}
                 </div>
               </div>
             </div>
