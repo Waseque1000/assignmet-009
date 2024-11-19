@@ -44,22 +44,25 @@ const Success = () => {
       label: "Tutorials Finished",
     },
   ];
+
   return (
-    <div className="bg-white p-6 my-20 rounded-lg shadow-md">
-      <h2 className="text-2xl font-bold text-center mb-6">
+    <div className="bg-white px-4 py-10 my-20 rounded-lg shadow-md">
+      <h2 className="text-2xl md:text-3xl font-bold text-center mb-8 text-blue-700">
         Learning Success Metrics
       </h2>
-      <div className="mx-30 grid grid-cols-2 md:grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         {metrics.map((metric, index) => (
           <div
             key={index}
-            className="flex flex-col items-center p-4 bg-blue-50 rounded-lg transition-all hover:shadow-md"
+            className="flex flex-col items-center p-6 bg-blue-50 rounded-lg transition-all hover:shadow-lg"
           >
-            <metric.icon className="w-12 h-12 text-blue-600 mb-2" />
-            <div className="text-3xl font-bold text-blue-800">
+            <metric.icon className="w-10 h-10 sm:w-12 sm:h-12 text-blue-600 mb-4" />
+            <div className="text-2xl sm:text-3xl font-bold text-blue-800">
               <CountUp end={metric.count} />
             </div>
-            <p className="text-sm text-gray-600 mt-1">{metric.label}</p>
+            <p className="text-sm md:text-base text-gray-600 mt-2">
+              {metric.label}
+            </p>
           </div>
         ))}
       </div>

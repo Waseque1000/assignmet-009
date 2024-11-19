@@ -2,11 +2,10 @@ import { useContext } from "react";
 import { PiGraduationCapFill } from "react-icons/pi";
 import { Link, NavLink } from "react-router-dom";
 import { AuthContext } from "../../Provider/Authproviders";
-import { FaUser } from "react-icons/fa";
 
 const Navbar = () => {
   const { user, logOut } = useContext(AuthContext);
-  console.log(user);
+
   const handleLogout = () => {
     logOut()
       .then(() => {})
@@ -14,12 +13,19 @@ const Navbar = () => {
         console.log(error.message);
       });
   };
+
   return (
-    <div>
-      <div className="navbar bg-base-100">
+    <div className="bg-base-100 shadow-md sticky top-0 z-50">
+      <div className="navbar max-w-7xl mx-auto">
+        {/* Navbar Start Section */}
         <div className="navbar-start">
-          <div className="dropdown">
-            <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
+          {/* Mobile Menu */}
+          <div className="dropdown lg:hidden">
+            <button
+              tabIndex={0}
+              className="btn btn-ghost lg:hidden"
+              aria-label="Toggle Menu"
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="h-5 w-5"
@@ -34,73 +40,82 @@ const Navbar = () => {
                   d="M4 6h16M4 12h8m-8 6h16"
                 />
               </svg>
-            </div>
+            </button>
             <ul
               tabIndex={0}
               className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
-            ></ul>
+            >
+              <NavLink className="btn btn-ghost" to="/">
+                Home
+              </NavLink>
+              <NavLink className="btn btn-ghost" to="/learning">
+                Start Learning
+              </NavLink>
+              <NavLink className="btn btn-ghost" to="/contact">
+                Tutorial
+              </NavLink>
+              <NavLink className="btn btn-ghost" to="/about">
+                About Us
+              </NavLink>
+              {user && (
+                <NavLink className="btn btn-ghost" to="/dashboard">
+                  Dashboard
+                </NavLink>
+              )}
+            </ul>
           </div>
+          {/* Logo */}
           <div className="flex items-center">
             <PiGraduationCapFill className="h-8 w-8 text-blue-600" />
-            <Link to="/">
-              {" "}
-              <span className="ml-2 text-2xl font-bold text-blue-600">
-                Lingo Bingo
-              </span>
+            <Link to="/" className="ml-2 text-2xl font-bold text-blue-600">
+              Lingo Bingo
             </Link>
           </div>
         </div>
+
+        {/* Navbar Center Section */}
         <div className="navbar-center hidden lg:flex">
-          <ul className="menu menu-horizontal   px-3 py-3">
-            <NavLink className="mr-3 btn " to="/">
+          <ul className="menu menu-horizontal px-3 py-3">
+            <NavLink className="mr-3 btn btn-ghost" to="/">
               Home
             </NavLink>
-
-            <NavLink className="mr-3 btn" to="/learning">
+            <NavLink className="mr-3 btn btn-ghost" to="/learning">
               Start Learning
             </NavLink>
-            <NavLink className="mr-3 btn" to="/contact">
+            <NavLink className="mr-3 btn btn-ghost" to="/contact">
               Tutorial
             </NavLink>
-            <NavLink className="mr-3 btn" to="/about">
+            <NavLink className="mr-3 btn btn-ghost" to="/about">
               About Us
             </NavLink>
             {user && (
-              <NavLink className="mr-3 btn" to="/dashboard">
+              <NavLink className="mr-3 btn btn-ghost" to="/dashboard">
                 Dashboard
               </NavLink>
             )}
-            {/* TODO: */}
           </ul>
         </div>
-        <div className="    navbar-end">
-          {user ? (
-            <div>
-              <img
-                className="w-10 mr-2 rounded-full"
-                src={user?.photoURL}
-                alt=""
-              />
-            </div>
-          ) : (
-            <></>
-          )}
 
+        {/* Navbar End Section */}
+        <div className="navbar-end flex items-center space-x-3">
           {user ? (
             <>
-              <Link
+              <img
+                className="w-10 h-10 rounded-full border border-gray-200"
+                src={user?.photoURL}
+                alt={user?.displayName || "User"}
+              />
+              <button
                 onClick={handleLogout}
-                className="btn bg-blue-400  text-white"
+                className="btn bg-blue-400 text-white hover:bg-blue-500"
               >
                 Log out
-              </Link>
+              </button>
             </>
           ) : (
-            <>
-              <Link className="btn btn-primary" to="/login">
-                Login
-              </Link>
-            </>
+            <Link className="btn btn-primary" to="/login">
+              Login
+            </Link>
           )}
         </div>
       </div>

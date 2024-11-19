@@ -27,7 +27,7 @@ import { AuthContext } from "../../Provider/Authproviders";
 import { Helmet } from "react-helmet";
 
 const Dashboard = () => {
-  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false); // Start with sidebar closed
   const { logOut, user } = useContext(AuthContext);
   const navigate = useNavigate();
   const location = useLocation();
@@ -120,7 +120,7 @@ const Dashboard = () => {
       <div
         className={`fixed top-0 mt-20 left-0 h-screen bg-base-100 shadow-xl transition-all duration-300 ${
           isSidebarOpen ? "w-64" : "w-20"
-        }`}
+        } sm:w-64`} // Sidebar stays open on medium screens and up
       >
         <div className="p-4 flex justify-between items-center">
           <h1 className={`font-bold text-xl ${!isSidebarOpen && "hidden"}`}>
@@ -128,7 +128,7 @@ const Dashboard = () => {
           </h1>
           <button
             onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-            className="btn btn-ghost btn-sm"
+            className="btn btn-ghost btn-sm sm:hidden" // Only visible on small screens
           >
             <Menu className="w-5 h-5" />
           </button>
@@ -180,7 +180,7 @@ const Dashboard = () => {
       <div
         className={`transition-all duration-300 ${
           isSidebarOpen ? "ml-64" : "ml-20"
-        }`}
+        } sm:ml-64`} // Adjust layout for medium screens and larger
       >
         {/* Top Navigation */}
         <div className="navbar bg-base-100 shadow">
@@ -252,105 +252,71 @@ const Dashboard = () => {
             <div className="card bg-base-100 shadow-xl lg:col-span-2">
               <div className="card-body">
                 <h3 className="card-title">Learning Time Overview</h3>
-                <div className="h-80">
+                <div className="w-full h-80">
                   <ResponsiveContainer width="100%" height="100%">
                     <BarChart data={learningTimeData}>
                       <CartesianGrid strokeDasharray="3 3" />
                       <XAxis dataKey="month" />
-                      <YAxis
-                        label={{
-                          value: "Hours/Users",
-                          angle: -90,
-                          position: "insideLeft",
-                        }}
-                      />
+                      <YAxis />
                       <Tooltip />
                       <Legend />
-                      <Bar
-                        dataKey="hours"
-                        fill="#3B82F6"
-                        name="Learning Hours"
-                      />
-                      <Bar dataKey="users" fill="#10B981" name="Active Users" />
+                      <Bar dataKey="hours" fill="#8884d8" />
                     </BarChart>
                   </ResponsiveContainer>
                 </div>
               </div>
             </div>
 
-            {/* Recent Activity */}
+            {/* Recent Activities */}
             <div className="card bg-base-100 shadow-xl">
               <div className="card-body">
                 <h3 className="card-title">Recent Activity</h3>
-                <div className="space-y-4 mt-4">
+                <ul className="space-y-3">
                   {recentActivity.map((activity, index) => (
-                    <div key={index} className="flex items-start gap-4">
-                      <div className="avatar">
-                        <div className="w-10 rounded-full">
-                          <img
-                            src={`/api/placeholder/${40 + index}/${40 + index}`}
-                            alt="user"
-                          />
+                    <li
+                      key={index}
+                      className="flex justify-between items-center"
+                    >
+                      <div>
+                        <div className="font-medium">{activity.user}</div>
+                        <div className="text-sm text-base-content/70">
+                          {activity.action}
                         </div>
                       </div>
-                      <div>
-                        <p className="font-medium">
-                          {activity.user} {activity.action}
-                        </p>
-                        <p className="text-sm text-base-content/50">
-                          {activity.time}
-                        </p>
-                        {activity.amount && (
-                          <span className="text-success font-medium">
-                            {activity.amount}
-                          </span>
-                        )}
+                      <div className="text-sm text-base-content/70">
+                        {activity.time}
                       </div>
-                    </div>
+                      {activity.amount && (
+                        <div className="text-sm text-base-content/70">
+                          {activity.amount}
+                        </div>
+                      )}
+                    </li>
                   ))}
-                </div>
+                </ul>
               </div>
             </div>
           </div>
 
-          {/* Bottom Row */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            {/* Upcoming Events */}
-            <div className="card bg-base-100 shadow-xl">
-              <div className="card-body">
-                <h3 className="card-title">Upcoming Events</h3>
-                <div className="space-y-4 mt-4">
-                  {upcomingEvents.map((event, index) => (
-                    <div key={index} className="flex items-center gap-4">
-                      <div className="p-3 bg-primary/10 rounded-lg text-primary">
-                        <Calendar className="w-5 h-5" />
-                      </div>
-                      <div>
-                        <p className="font-medium">{event.title}</p>
-                        <p className="text-sm text-base-content/50">
-                          {event.time} - {event.date}
-                        </p>
+          {/* Upcoming Events */}
+          <div className="card bg-base-100 shadow-xl">
+            <div className="card-body">
+              <h3 className="card-title">Upcoming Events</h3>
+              <ul className="space-y-3">
+                {upcomingEvents.map((event, index) => (
+                  <li key={index} className="flex justify-between">
+                    <div>
+                      <div className="font-medium">{event.title}</div>
+                      <div className="text-sm text-base-content/70">
+                        {event.time}
                       </div>
                     </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-
-            {/* Quick Actions */}
-            <div className="card bg-base-100 shadow-xl">
-              <div className="card-body">
-                <h3 className="card-title">Quick Actions</h3>
-                <div className="grid grid-cols-2 gap-4 mt-4">
-                  {["New Vocabulary", "Exercise", "Exam", "View Reports"].map(
-                    (action, index) => (
-                      <button key={index} className="btn btn-outline">
-                        {action}
-                      </button>
-                    )
-                  )}
-                </div>
-              </div>
+                    <div className="text-sm text-base-content/70">
+                      {event.date}
+                    </div>
+                  </li>
+                ))}
+              </ul>
             </div>
           </div>
         </div>

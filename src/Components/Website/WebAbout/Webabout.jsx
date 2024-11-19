@@ -1,28 +1,31 @@
 import React from "react";
-import OfferCountdownTimer from "../../Coundown/OfferCountdownTimer";
 import { Link } from "react-router-dom";
 
 const Webabout = () => {
   return (
-    <div className="max-w-6xl mx-auto px-4 py-8 font-sans">
+    <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 font-sans">
+      {/* Mission Section */}
       <section className="mb-12">
-        <h2 className="text-3xl font-semibold text-center mb-8">Our Mission</h2>
+        <h2 className="text-2xl md:text-3xl font-semibold text-center mb-8">
+          Our Mission
+        </h2>
         <div className="bg-blue-50 p-6 rounded-lg shadow-md text-center">
-          <p className="text-lg text-gray-700">
+          <p className="text-base md:text-lg text-gray-700">
             We believe that building a strong vocabulary is the key to effective
             communication and intellectual growth.
           </p>
         </div>
       </section>
 
+      {/* How We Help Section */}
       <section className="mb-12">
-        <h2 className="text-3xl font-semibold text-center mb-8">
+        <h2 className="text-2xl md:text-3xl font-semibold text-center mb-8">
           How We Help You Learn Vocabularies
         </h2>
-
-        <div className="grid md:grid-cols-2 gap-6">
+        <div className="grid gap-6 md:grid-cols-2">
+          {/* Card 1 */}
           <div className="bg-white p-6 rounded-lg shadow-md">
-            <h3 className="text-2xl font-semibold mb-4 flex items-center">
+            <h3 className="text-xl md:text-2xl font-semibold mb-4 flex items-center">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="w-6 h-6 mr-3 text-blue-600"
@@ -39,7 +42,7 @@ const Webabout = () => {
               </svg>
               Interactive Learning Approach
             </h3>
-            <ul className="space-y-3 text-gray-700">
+            <ul className="space-y-3 text-sm md:text-base text-gray-700">
               <li className="flex items-center">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -94,8 +97,9 @@ const Webabout = () => {
             </ul>
           </div>
 
+          {/* Card 2 */}
           <div className="bg-white p-6 rounded-lg shadow-md">
-            <h3 className="text-2xl font-semibold mb-4 flex items-center">
+            <h3 className="text-xl md:text-2xl font-semibold mb-4 flex items-center">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="w-6 h-6 mr-3 text-blue-600"
@@ -112,7 +116,7 @@ const Webabout = () => {
               </svg>
               Learning Techniques
             </h3>
-            <ol className="space-y-3 text-gray-700 list-decimal pl-5">
+            <ol className="space-y-3 text-sm md:text-base text-gray-700 list-decimal pl-5">
               <li>Context-Based Learning</li>
               <li>Spaced Repetition System</li>
               <li>Multi-Modal Learning</li>
@@ -121,11 +125,12 @@ const Webabout = () => {
         </div>
       </section>
 
+      {/* Key Features */}
       <section className="mb-12">
-        <h2 className="text-3xl font-semibold text-center mb-8">
+        <h2 className="text-2xl md:text-3xl font-semibold text-center mb-8">
           Key Features
         </h2>
-        <div className="grid md:grid-cols-3 gap-4">
+        <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3">
           {[
             "Daily vocabulary challenges",
             "Progress tracking",
@@ -143,9 +148,10 @@ const Webabout = () => {
         </div>
       </section>
 
+      {/* Call to Action */}
       <section className="text-center bg-blue-600 text-white py-12 rounded-lg">
-        <h2 className="text-3xl font-bold mb-4">Our Commitment</h2>
-        <p className="max-w-2xl mx-auto mb-6 text-lg">
+        <h2 className="text-2xl md:text-3xl font-bold mb-4">Our Commitment</h2>
+        <p className="max-w-2xl mx-auto mb-6 text-base md:text-lg">
           We're passionate about making language learning accessible, fun, and
           effective for everyone, regardless of age or background.
         </p>
@@ -155,10 +161,6 @@ const Webabout = () => {
           </button>
         </Link>
       </section>
-      {/* Fixed Countdown Timer */}
-      {/* <div className="fixed top-1/2 right-4 transform -translate-y-1/2 z-50">
-        <OfferCountdownTimer />
-      </div> */}
     </div>
   );
 };

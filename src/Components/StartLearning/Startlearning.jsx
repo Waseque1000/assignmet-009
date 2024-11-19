@@ -1,18 +1,15 @@
 import React, { useState } from "react";
 import { GiSpeaker } from "react-icons/gi";
 import { useLoaderData } from "react-router-dom";
+import { toast } from "react-toastify";
 
-const Startlearning = () => {
+const StartLearning = () => {
   const [selectedLesson, setSelectedLesson] = useState(null);
+  const [wordStatus, setWordStatus] = useState({});
+  const [completedLessons, setCompletedLessons] = useState({});
   const vocabulary = useLoaderData();
-  //   TODO:
 
-  const pronounceWord = (word) => {
-    const utterance = new SpeechSynthesisUtterance(word);
-    utterance.lang = "es-ES";
-    window.speechSynthesis.speak(utterance);
-  };
-
+  // Group words by lesson
   const groupedByLesson = vocabulary.reduce((acc, word) => {
     if (!acc[word.lesson_no]) {
       acc[word.lesson_no] = [];
@@ -23,12 +20,47 @@ const Startlearning = () => {
 
   const sortedLessons = Object.keys(groupedByLesson).sort((a, b) => a - b);
 
+  // Function to handle word review status update
+  const handleWordReview = (wordId) => {
+    setWordStatus((prevStatus) => ({
+      ...prevStatus,
+      [wordId]: prevStatus[wordId] === "reviewed" ? "unreviewed" : "reviewed",
+    }));
+  };
+
+  // Function to mark a lesson as complete
+  const handleCompleteLesson = (lessonNo) => {
+    const lessonWords = groupedByLesson[lessonNo];
+    const allReviewed = lessonWords.every(
+      (word) => wordStatus[word.id] === "reviewed"
+    );
+
+    if (allReviewed) {
+      setCompletedLessons((prevCompleted) => ({
+        ...prevCompleted,
+        [lessonNo]: true,
+      }));
+
+      toast(`Lesson ${lessonNo} completed!`);
+    } else {
+      toast(
+        "You need to review all words in this lesson before completing it."
+      );
+    }
+  };
+
+  const pronounceWord = (word) => {
+    const utterance = new SpeechSynthesisUtterance(word);
+    utterance.lang = "es-ES";
+    window.speechSynthesis.speak(utterance);
+  };
+
   return (
-    <div className="container mx-auto p-4 max-w-4xl">
+    <div className="container mx-auto p-4 max-w-6xl">
       {/* Lessons Card */}
       <div className="card bg-base-100 shadow-xl mb-6">
         <div className="card-body">
-          <h2 className="card-title">Spanish Vocabulary Lessons</h2>
+          <h2 className="card-title mb-3">Spanish Vocabulary Lessons</h2>
           <div className="flex flex-wrap gap-2">
             {sortedLessons.map((lessonNo) => (
               <button
@@ -64,8 +96,11 @@ const Startlearning = () => {
 
             <div className="space-y-4">
               {groupedByLesson[selectedLesson].map((word) => (
-                <div key={word.id} className="card bg-base-200">
-                  <div className="card-body">
+                <div
+                  key={word.id}
+                  className="card bg-base-200 flex flex-col md:flex-row gap-4 p-4"
+                >
+                  <div className="flex-1">
                     <div className="flex justify-between items-start">
                       <h3 className="text-lg font-bold">{word.word}</h3>
                       <span
@@ -81,12 +116,15 @@ const Startlearning = () => {
                       </span>
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-2">
                       <div>
                         <p className="text-sm opacity-70">Pronunciation:</p>
                         <div
                           className="btn"
-                          onClick={() => pronounceWord(word.pronunciation)}
+                          onClick={() => {
+                            pronounceWord(word.pronunciation);
+                            handleWordReview(word.id);
+                          }}
                         >
                           <GiSpeaker className="text-2xl text-red-700 mr-2" />
                         </div>
@@ -110,9 +148,44 @@ const Startlearning = () => {
                       <p className="text-sm opacity-70">Example:</p>
                       <p className="font-medium italic">{word.example}</p>
                     </div>
+
+                    {/* Complete Word Button */}
+                    <div className="mt-4 flex justify-end">
+                      <button
+                        onClick={() => handleWordReview(word.id)}
+                        className={`btn ${
+                          wordStatus[word.id] === "reviewed"
+                            ? "btn-success"
+                            : "btn-outline"
+                        }`}
+                      >
+                        {wordStatus[word.id] === "reviewed"
+                          ? "Done"
+                          : "Complete"}
+                      </button>
+                    </div>
                   </div>
                 </div>
               ))}
+            </div>
+
+            {/* Complete Lesson Button */}
+            <div className="mt-6 flex justify-end">
+              <button
+                onClick={() => handleCompleteLesson(selectedLesson)}
+                className={`btn btn-success ${
+                  groupedByLesson[selectedLesson].every(
+                    (word) => wordStatus[word.id] === "reviewed"
+                  )
+                    ? ""
+                    : "btn-disabled"
+                }`}
+                disabled={groupedByLesson[selectedLesson].some(
+                  (word) => wordStatus[word.id] !== "reviewed"
+                )}
+              >
+                Complete Lesson
+              </button>
             </div>
           </div>
         </div>
@@ -120,4 +193,5 @@ const Startlearning = () => {
     </div>
   );
 };
-export default Startlearning;
+
+export default StartLearning;

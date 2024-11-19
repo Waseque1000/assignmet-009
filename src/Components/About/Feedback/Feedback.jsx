@@ -49,8 +49,8 @@ const Feedback = () => {
 
   return (
     <div className="flex justify-center items-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
-      <div className="bg-purple-50 p-8 rounded-lg shadow-lg max-w-4xl w-full">
-        <h2 className="text-2xl font-bold text-center mb-6 text-black">
+      <div className="bg-purple-50 p-6 sm:p-8 rounded-lg shadow-lg max-w-4xl w-full">
+        <h2 className="text-2xl md:text-3xl font-bold text-center mb-6 text-black">
           Life @ Lingo Bingo
         </h2>
         <div className="flex flex-col sm:flex-row items-center">
@@ -58,7 +58,7 @@ const Feedback = () => {
           <img
             src={currentTestimonial.img}
             alt={currentTestimonial.name}
-            className="w-36 h-36 rounded-lg object-cover shadow-md sm:mr-8"
+            className="w-32 h-32 sm:w-36 sm:h-36 rounded-lg object-cover shadow-md sm:mr-8 mb-4 sm:mb-0"
           />
           {/* Content */}
           <div className="mt-4 sm:mt-0 text-center sm:text-left">
@@ -66,7 +66,9 @@ const Feedback = () => {
             <p className="text-blue-600 font-medium">
               {currentTestimonial.position}
             </p>
-            <p className="text-gray-700 mt-3">{currentTestimonial.feedback}</p>
+            <p className="text-gray-700 mt-3 text-sm sm:text-base">
+              {currentTestimonial.feedback}
+            </p>
           </div>
         </div>
         {/* Navigation Buttons */}
