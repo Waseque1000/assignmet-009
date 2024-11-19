@@ -1,17 +1,10 @@
+import React from "react";
+import OfferCountdownTimer from "../../Coundown/OfferCountdownTimer";
 import { Link } from "react-router-dom";
-import OfferCountdownTimer from "../Coundown/OfferCountdownTimer";
 
-const About = () => {
+const Webabout = () => {
   return (
     <div className="max-w-6xl mx-auto px-4 py-8 font-sans">
-      <header className="text-center mb-12">
-        <h1 className="text-4xl font-bold text-blue-800 mb-4">Lingo Bingo</h1>
-        <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-          Transforming vocabulary learning into an engaging, interactive, and
-          personalized experience
-        </p>
-      </header>
-
       <section className="mb-12">
         <h2 className="text-3xl font-semibold text-center mb-8">Our Mission</h2>
         <div className="bg-blue-50 p-6 rounded-lg shadow-md text-center">
@@ -163,11 +156,11 @@ const About = () => {
         </Link>
       </section>
       {/* Fixed Countdown Timer */}
-      <div className="fixed top-1/2 right-4 transform -translate-y-1/2 z-50">
+      {/* <div className="fixed top-1/2 right-4 transform -translate-y-1/2 z-50">
         <OfferCountdownTimer />
-      </div>
+      </div> */}
     </div>
   );
 };
 
-export default About;
+export default Webabout;

@@ -1,5 +1,5 @@
-import { Helmet } from "react-helmet";
 import img from "../../../../src/assets/header_kid_d.png";
+import { Link } from "react-router-dom";
 
 const Hero = () => {
   return (
@@ -23,9 +23,11 @@ const Hero = () => {
               150 Million+ Words | 200+ Languages | 1000+ Courses
             </p>
           </div>
-          <button className="btn bg-red-600  text-white rounded-full mt-5">
-            Start Learning Now
-          </button>
+          <Link to="/learning">
+            <button className="btn bg-red-600  text-white rounded-full mt-5">
+              Start Learning Now
+            </button>
+          </Link>
         </div>
       </div>
     </div>

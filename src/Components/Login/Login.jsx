@@ -2,13 +2,26 @@ import { useContext } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../Provider/Authproviders";
 import { toast } from "react-toastify";
+import { BsGoogle } from "react-icons/bs";
+import { Github } from "lucide-react";
 
 const Login = () => {
-  const { login, user, setUser, setLoading } = useContext(AuthContext);
+  const { login, user, setUser, setLoading, googleLogin } =
+    useContext(AuthContext);
   //
   const navigate = useNavigate();
   const location = useLocation();
 
+  // google
+  const handleGoogle = () => {
+    googleLogin()
+      .then((result) => {
+        const user = result.user;
+        setUser(user);
+        navigate("/");
+      })
+      .catch((err) => console.log(err));
+  };
   const handlelogin = (e) => {
     e.preventDefault();
     const form = e.target;
@@ -90,6 +103,21 @@ const Login = () => {
               </div>
               <div className="form-control mt-6">
                 <button className="btn btn-primary">Login</button>
+              </div>
+              <div className="flex flex-row  text-center justify-evenly form-control mt-6">
+                <button
+                  onClick={handleGoogle}
+                  target="_blank"
+                  className="text-red-800 hover:text-green-600"
+                >
+                  <BsGoogle size={24} />
+                </button>
+                <button
+                  target="_blank"
+                  className="text-red-800 ml-4 hover:text-green-600"
+                >
+                  <Github size={24} />
+                </button>
               </div>
             </form>
           </div>
