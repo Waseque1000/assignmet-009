@@ -3,6 +3,7 @@ import { auth } from "../firebase.config";
 import {
   createUserWithEmailAndPassword,
   onAuthStateChanged,
+  sendPasswordResetEmail,
   signInWithEmailAndPassword,
   signInWithPopup,
   signOut,
@@ -52,6 +53,11 @@ const AuthProviders = ({ children }) => {
     };
   }, []);
 
+  //
+  const forgetpass = (email) => {
+    return sendPasswordResetEmail(auth, email);
+  };
+
   const authInfo = {
     user,
     setUser,
@@ -62,6 +68,7 @@ const AuthProviders = ({ children }) => {
     loading,
     updateUserProfile,
     googleLogin,
+    forgetpass,
   };
   return (
     <AuthContext.Provider value={authInfo}>{children}</AuthContext.Provider>

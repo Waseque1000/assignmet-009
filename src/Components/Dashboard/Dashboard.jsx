@@ -21,6 +21,7 @@ import {
   Menu,
   Bell,
   Search,
+  Link,
 } from "lucide-react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../Provider/Authproviders";
@@ -31,6 +32,11 @@ const Dashboard = () => {
   const { logOut, user } = useContext(AuthContext);
   const navigate = useNavigate();
   const location = useLocation();
+
+  const updateinfo = () => {
+    // Update user info
+    //...
+  };
 
   const learningTimeData = [
     { month: "Jan", hours: 42, users: 1200 },
@@ -119,8 +125,8 @@ const Dashboard = () => {
       {/* Sidebar */}
       <div
         className={`fixed top-0 mt-20 left-0 h-screen bg-base-100 shadow-xl transition-all duration-300 ${
-          isSidebarOpen ? "w-64" : "w-20"
-        } sm:w-64`} // Sidebar stays open on medium screens and up
+          isSidebarOpen ? "w-30" : "w-20"
+        } sm:w-30`}
       >
         <div className="p-4 flex justify-between items-center">
           <h1 className={`font-bold text-xl ${!isSidebarOpen && "hidden"}`}>
@@ -183,36 +189,40 @@ const Dashboard = () => {
         } sm:ml-64`} // Adjust layout for medium screens and larger
       >
         {/* Top Navigation */}
-        <div className="navbar bg-base-100 shadow">
-          <div className="flex-1">
-            <div className="form-control">
-              <div className="input-group">
-                <input
-                  type="text"
-                  placeholder="Search..."
-                  className="input input-bordered"
-                />
-                <button className="btn btn-square">
-                  <Search className="w-5 h-5" />
-                </button>
+        <div>
+          <div className="flex justify-between">
+            <div className="flex-1">
+              <div className="form-control">
+                {" "}
+                <div className="text-1xl font-bold">
+                  Welcome{" "}
+                  <span className="text-red-600 text-3xl italic">
+                    {user?.displayName}
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div className="flex justify-center align-center text-center gap-2">
+              <div className="text-1xl font-bold">
+                <span className="text-red-600  ">{user?.email}</span>
+              </div>
+
+              <div className="dropdown dropdown-end">
+                <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
+                  <div className="w-10 rounded-full">
+                    <img src={user?.photoURL} alt="avatar" />
+                  </div>
+                </label>
               </div>
             </div>
           </div>
-          <div className="flex-none gap-2">
-            <div className="text-1xl font-bold">
-              Welcome{" "}
-              <span className="text-red-600 text-3xl italic">
-                {user?.displayName}
-              </span>
-            </div>
-
-            <div className="dropdown dropdown-end">
-              <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
-                <div className="w-10 rounded-full">
-                  <img src={user?.photoURL} alt="avatar" />
-                </div>
-              </label>
-            </div>
+          <div>
+            <button
+              onClick={updateinfo}
+              className="btn bg-blue-600  text-white rounded-full mt-2"
+            >
+              Update Profile
+            </button>
           </div>
         </div>
 

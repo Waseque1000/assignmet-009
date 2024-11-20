@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useRef, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../Provider/Authproviders";
 import { toast } from "react-toastify";
@@ -6,13 +6,15 @@ import { BsGoogle } from "react-icons/bs";
 import { Github } from "lucide-react";
 import { ImCross } from "react-icons/im";
 import { FaEye } from "react-icons/fa";
+import { sendPasswordResetEmail } from "firebase/auth";
 
 const Login = () => {
-  const { login, user, setUser, setLoading, googleLogin } =
+  const { login, user, setUser, setLoading, googleLogin, forgetpass } =
     useContext(AuthContext);
 
   const navigate = useNavigate();
   const location = useLocation();
+  const emailref = useRef();
 
   // State to toggle password visibility
   const [showPassword, setShowPassword] = useState(false);
@@ -67,6 +69,21 @@ const Login = () => {
       });
   };
 
+  const handleForgetPass = () => {
+    const email = emailref.current.value;
+    if (!email) {
+      toast.error("Please enter your email address.");
+    } else {
+      forgetpass(email)
+        .then(() => {
+          toast.success("Password reset email sent successfully.");
+        })
+        .then((error) => {
+          console.log(error);
+        });
+    }
+  };
+
   return (
     <div className="hero bg-base-200 min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8">
       <div className="hero-content flex flex-col lg:flex-row-reverse items-center lg:justify-between w-full max-w-6xl">
@@ -85,6 +102,7 @@ const Login = () => {
               <input
                 type="email"
                 placeholder="email"
+                ref={emailref}
                 name="email"
                 className="input input-bordered"
                 required
@@ -113,9 +131,12 @@ const Login = () => {
                 )}
               </button>
               <label className="label">
-                <a href="#" className="label-text-alt link link-hover">
+                <button
+                  onClick={handleForgetPass}
+                  className="label-text-alt link link-hover"
+                >
                   Forgot password?
-                </a>
+                </button>
               </label>
               <p className="text-red-600">
                 <Link to="/register" className="t">

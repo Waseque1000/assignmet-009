@@ -51,9 +51,11 @@ const Navbar = () => {
               <NavLink className="btn btn-ghost" to="/learning">
                 Start Learning
               </NavLink>
-              <NavLink className="btn btn-ghost" to="/contact">
+
+              <NavLink className="mr-3 btn btn-ghost" to="/tutorial">
                 Tutorial
               </NavLink>
+
               <NavLink className="btn btn-ghost" to="/about">
                 About Us
               </NavLink>
@@ -82,12 +84,15 @@ const Navbar = () => {
             <NavLink className="mr-3 btn btn-ghost" to="/learning">
               Start Learning
             </NavLink>
-            <NavLink className="mr-3 btn btn-ghost" to="/contact">
-              Tutorial
-            </NavLink>
+
             <NavLink className="mr-3 btn btn-ghost" to="/about">
               About Us
             </NavLink>
+
+            <NavLink className="mr-3 btn btn-ghost" to="/tutorial">
+              Tutorial
+            </NavLink>
+
             {user && (
               <NavLink className="mr-3 btn btn-ghost" to="/dashboard">
                 Dashboard

@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { GiSpeaker } from "react-icons/gi";
 import { useLoaderData } from "react-router-dom";
 import { toast } from "react-toastify";
+import { AuthContext } from "../../Provider/Authproviders";
 
 const StartLearning = () => {
   const [selectedLesson, setSelectedLesson] = useState(null);
@@ -55,10 +56,20 @@ const StartLearning = () => {
     window.speechSynthesis.speak(utterance);
   };
 
+  const { user } = useContext(AuthContext);
+
   return (
     <div className="container mx-auto p-4 max-w-6xl">
       {/* Lessons Card */}
       <div className="card bg-base-100 shadow-xl mb-6">
+        <div>
+          <div className="text-4xl my-10 font-bold">
+            Welcome{" "}
+            <span className="text-blue-500 text-6xl italic">
+              {user?.displayName}
+            </span>
+          </div>
+        </div>
         <div className="card-body">
           <h2 className="card-title mb-3">Spanish Vocabulary Lessons</h2>
           <div className="flex flex-wrap gap-2">

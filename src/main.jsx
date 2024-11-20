@@ -14,6 +14,7 @@ import Dashboard from "./Components/Dashboard/Dashboard.jsx";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import About1 from "./Components/About/About1.jsx";
+import Tutorial from "./Components/Tutorial/Tutorial.jsx";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -45,6 +46,14 @@ const router = createBrowserRouter([
       {
         path: "/about",
         element: <About1 />,
+      },
+      {
+        path: "/tutorial",
+        element: (
+          <PrivateRouts>
+            <Tutorial />
+          </PrivateRouts>
+        ),
       },
       {
         path: "*",
