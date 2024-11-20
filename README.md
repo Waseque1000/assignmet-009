@@ -1,6 +1,6 @@
 # Interactive Language Learning Application
 
-## [Live Link](https://your-live-link.com)
+## [Live Link](https://assignment-009-cfd88.web.app/)
 
 Welcome to **Lingo Bingo**, a fun and engaging platform designed to help users expand their vocabulary and improve their communication skills in Spanish! This application makes learning enjoyable and interactive, helping you overcome the challenges of retaining vocabulary through structured lessons and interactive exercises.
 

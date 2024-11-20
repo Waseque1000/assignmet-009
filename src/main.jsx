@@ -11,7 +11,7 @@ import Error from "./Components/Error/Error.jsx";
 import PrivateRouts from "./Routes/Private/PrivateRouts.jsx";
 import Startlearning from "./Components/StartLearning/Startlearning.jsx";
 import Dashboard from "./Components/Dashboard/Dashboard.jsx";
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import About1 from "./Components/About/About1.jsx";
 import Tutorial from "./Components/Tutorial/Tutorial.jsx";
@@ -87,7 +87,7 @@ createRoot(document.getElementById("root")).render(
         pauseOnHover
         theme="light"
       />
-      {/* Same as */}
+
       <ToastContainer />
       <RouterProvider router={router} />
     </AuthProviders>

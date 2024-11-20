@@ -3,7 +3,6 @@ import Hero2 from "../../Hero/Hero2/Hero2";
 
 import Hero3 from "../../Hero/Hero3/Hero3";
 import { Helmet } from "react-helmet";
-// import AboutShared from "../../Shared/AboutShared";
 import Feedback from "../../About/Feedback/Feedback";
 import Footer from "../../Footer/Footer";
 import Success from "../../Success/Success";

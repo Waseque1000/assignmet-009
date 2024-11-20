@@ -6,7 +6,6 @@ import { BsGoogle } from "react-icons/bs";
 import { Github } from "lucide-react";
 import { ImCross } from "react-icons/im";
 import { FaEye } from "react-icons/fa";
-import { sendPasswordResetEmail } from "firebase/auth";
 
 const Login = () => {
   const { login, user, setUser, setLoading, googleLogin, forgetpass } =
