@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Play, BookOpen } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const Tutorial = () => {
   const [activeVideo, setActiveVideo] = useState(0);
@@ -123,14 +124,16 @@ const Tutorial = () => {
             ))}
           </div>
 
-          <button
-            onClick={handleStartLesson}
-            className="w-full py-4 px-3 sm:py-6 sm:px-4 text-base sm:text-lg bg-blue-400 hover:bg-blue-700 text-black hover:text-white rounded-lg
+          <Link to="/learning">
+            <button
+              onClick={handleStartLesson}
+              className="w-full py-4 px-3 sm:py-6 sm:px-4 text-base sm:text-lg bg-blue-400 hover:bg-blue-700 text-black hover:text-white rounded-lg
                 flex items-center justify-center gap-2 transition-colors"
-          >
-            <BookOpen className="w-5 h-5" />
-            Learn Vocabularies
-          </button>
+            >
+              <BookOpen className="w-5 h-5" />
+              Learn Vocabularies
+            </button>
+          </Link>
         </div>
       </div>
     </div>

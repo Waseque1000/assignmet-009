@@ -105,11 +105,13 @@ const Navbar = () => {
         <div className="navbar-end flex items-center space-x-3">
           {user ? (
             <>
-              <img
-                className="w-10 h-10 rounded-full border border-gray-200"
-                src={user?.photoURL}
-                alt={user?.displayName || "User"}
-              />
+              <div className="border-4 rounded-full border-green-500">
+                <img
+                  className="w-10 h-10 p-1 rounded-full  "
+                  src={user?.photoURL}
+                  alt={user?.displayName || "User"}
+                />
+              </div>
               <button
                 onClick={handleLogout}
                 className="btn bg-blue-400 text-white hover:bg-blue-500"

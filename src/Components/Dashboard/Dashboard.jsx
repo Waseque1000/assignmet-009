@@ -209,8 +209,8 @@ const Dashboard = () => {
 
               <div className="dropdown dropdown-end">
                 <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
-                  <div className="w-10 rounded-full">
-                    <img src={user?.photoURL} alt="avatar" />
+                  <div className="w-10  border-4 rounded-full border-green-500">
+                    <img className="p-1" src={user?.photoURL} alt="avatar" />
                   </div>
                 </label>
               </div>
